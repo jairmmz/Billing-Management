@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\BuyerController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +28,22 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+Route::middleware([
+    'auth'
+    ])->group(function () {
+    Route::resource('/products', ProductController::class);
+});
+
+Route::middleware([
+    'auth'
+    ])->group(function () {
+    Route::resource('/buyers', BuyerController::class);
+});
+
+Route::middleware([
+    'auth'
+    ])->group(function () {
+    Route::resource('/invoices', InvoiceController::class);
 });
